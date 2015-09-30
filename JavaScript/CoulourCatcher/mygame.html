@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>Colour Catcher</title>
+		<script>
+		window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		</script>
+	</head>
+	<body>
+		<section>
+		<!-- This div is the canvas -->
+		<div id="centre">
+			<canvas id="canvas" width="400" height="600">
+			This text is displayed if your browser does not support HTML5 Canvas.
+			</canvas>
+			
+			<div id="leftjustify">
+				<p id="score">Switches: 0</p>
+				<p id="tileleft">Tiles left: 0</p>
+				<p id="time">Time: 0</p>
+				<div class="hoverzone"> Help? 
+					<ul class="menu">
+						<b>Collect all the small squares!</b>
+						<li>Arrow keys to move.</li>
+						<li>Space to change colour.</li>
+						<li>R to restart.</li>
+						<li>Get squares of your colour.</li>
+						<li>Don't touch the others!</li>
+						<li>The lower the score, the better.</li>
+
+					</ul>
+				</div>
+			</div>
+			<p id="mousepos"></p>
+			<a id="tweet" class="twitter-share-button"
+				href="https://twitter.com/share"
+				data-url="file://localhost/Users/jack.sarick/Desktop/School/Google%20Drive/Schoolwork/CS/CoulourCatcher/mygame.html"
+				data-text="Check out Colour Catcher! I scored x, can you?"
+				data-count="horizontal">
+				Tweet
+			</a>
+			
+		</div>
+
+			<script href="gameScript.js" type="text/javascript">
+				init();
+				window.addEventListener('keydown',doKeyDown,true);
+			</script>
+		</section>
+	</body>
+</html>

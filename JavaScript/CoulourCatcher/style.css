@@ -1,0 +1,48 @@
+body{
+	background:#272822;
+	font-family:PressStart2P;
+}
+
+li {
+   margin: 15px;
+}
+
+/*
+the sidebar links
+*/
+#centre{
+	transform:translate(100%, 0%); 
+	position:absolute;
+}
+
+#score, #tileleft, #time, #hoverzone{
+	color:#F8F8F2;
+}
+
+
+#leftjustify{
+	transform:translate(420px, -600px);
+	position:absolute;
+}
+
+/*
+for the help menu
+*/
+.menu{
+	position: relative;
+	top: 10px;
+	/*left: 20px;*/
+	display: none;
+}
+
+.hoverzone{
+	position: relative;
+	color:#F8F8F2;
+}
+
+.hoverzone:hover .menu{
+	display: block;
+	font-size: 12px;
+	/*background:#75715E;*/
+	color:#F8F8F2;
+}

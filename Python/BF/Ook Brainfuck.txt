@@ -1,0 +1,5 @@
+sets letter O in 2 ++++++++[ > ++++++++++ <-]>-.. 
+sets letter K in 4 >++++++++[ > ++++++++++ <-]>-----. 
+sets letter ! in 6  >+++[ > ++++++++++ <-]>+++.> 
+7 is input + 
+Run a loop to print a letter then ook, then repeat [,.<<<<<..>>.>>.>]  

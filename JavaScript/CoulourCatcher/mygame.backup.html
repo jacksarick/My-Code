@@ -1,0 +1,309 @@
+
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<title>Colour Catcher</title>
+	</head>
+	<body>
+		<section>
+		<!-- This div is the canvas -->
+		<div id="centre">
+			<canvas id="canvas" width="400" height="600">
+			This text is displayed if your browser does not support HTML5 Canvas.
+			</canvas>
+			<div id="leftjustify">
+				<p id="score">Switches: 0</p>
+				<p id="tileleft">Tiles left: 0</p>
+				<p id="time">Time: 0</p>
+				<div class="hoverzone"> Help? 
+					<ul class="menu">
+						<b>Collect all the small squares!</b>
+						<li>Arrow keys to move.</li>
+						<li>Space to change colour.</li>
+						<li>R to restart.</li>
+						<li>Get squares of your colour.</li>
+						<li>Don't touch the others!</li>
+						<li>The lower the score, the better.</li>
+
+					</ul>
+				</div>
+			</div>
+			<p id="mousepos"></p>
+		</div>
+
+			<script type="text/javascript">
+			/*
+				index.html - draws a dot on the screen
+				programmer: Jack
+				Notes:
+					"flag?" tests if you've lost
+					"Obs" are the obstacle squares
+					"cube" is the player
+					"-" in comments refers to a level 2 comment
+				
+				TODO:
+					- When no more cubes of one colour, can't change to that colour
+					- Music
+					- Different Levels/Difficulty
+					- Social Media links
+					- Leaderboard?
+			*/
+
+
+			// Set some global variables
+			// -Game
+			var canvas;
+			var ctx;
+			var WIDTH = 400;
+			var HEIGHT = 600;
+			var score = 0;
+			var time = 0;
+			var flag = true;
+			var lost = false;
+
+			//-Char
+			var x = (WIDTH/2)-36;
+			var y = (550)-36;
+			var dx = 10;
+			var dy = 10;
+			var velX = 0;
+			var velY = 0;
+			var maxSpeed = 7;
+			var friction = .98;
+			var switches = 0;
+			var cubecolourint = 0;
+
+
+			var colourpalette = ["#00AEEF", "#A6E22D", "#A581FF", "#F92772", "#E6DB74"];
+
+			//-Obstacles
+			var obstacles = 15;
+			var obsArray = [];
+			generateObs(obsArray);
+
+			// generate rectangle
+			function rect(x,y,w,h) {
+				ctx.beginPath();
+				ctx.rect(x,y,w,h);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();
+			}
+
+			//random int function
+			function getRandomInt (min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			// one-use f() to populate Obstacle array
+			function generateObs(){
+				for (var i = 0; i < obstacles; i++) {
+					var xcoord = getRandomInt(0, WIDTH-36);
+					var ycoord = getRandomInt(0, HEIGHT-130);
+					
+					obsArray[i] = [colourpalette[getRandomInt(0,4)], xcoord, ycoord, 40, 40];
+				}
+				console.log(obsArray);
+
+				//return arrayIn;
+			}
+
+			// checks collisions between cube and obs
+			function checkCol () {
+				for(i in obsArray) {
+					var testpoint = {x:obsArray[i][1], y:obsArray[i][2]};
+					if (!(
+						((testpoint.y + 40) < y) ||
+						(testpoint.y > (y + 72)) ||
+						((testpoint.x + 40) < x) ||
+						(testpoint.x > (x + 72))
+						)){
+
+						if (obsArray[i][0] == colourpalette[cubecolourint]){
+							obsArray.splice(i, 1);
+							score++ ;
+						}
+
+						else {
+							//console.log(obsArray[i][0]+"|"+colourpalette[cubecolourint])
+							flag = false;
+							lost = true;
+						}
+					}
+				}
+			}
+
+			// resets the game to it's original state
+			function resetGame() {
+				generateObs();
+				x = (WIDTH/2)-36;
+				y = (550)-36;
+				velX = 0;
+				velY = 0;
+				time = 0;
+				score = 0;
+				switches = 0;
+				cubecolourint = 0;
+				flag = true;
+				lost = false;
+			}
+
+			// why do you need help figuring out what this does?
+			function clear() {
+				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+			}
+
+			// Important starting function
+			function init() {
+				canvas = document.getElementById("canvas");
+				ctx = canvas.getContext("2d");
+				return setInterval(draw, 40);
+			}
+
+			// a function that works for winning AND losing
+			function endGame(status) {
+				//Cleanup
+				velY = velX = 0;
+
+				//Text
+				var c = document.getElementById("canvas");
+				var ctx = c.getContext("2d");
+				var message1 = "You " + status;
+				if (status != "Lose!") {
+					var message2 =  "Score: " + (Math.round(time/40) + (switches*5));
+				}
+				else{
+					var message2 =  "Score: ---";
+				}
+				ctx.fillStyle = "#F8F8F2";
+				ctx.font = "16px PressStart2P";
+				ctx.fillText(message1,140,250);
+				ctx.fillText(message2,140,300);
+
+				console.log(obsArray[i]);
+			}
+
+			//This happens when a button is pressed
+			function doKeyDown(evt){
+				if (evt.keyCode == 82){
+					resetGame();
+				}
+				if (flag){
+					switch (evt.keyCode) {
+						case 38:  /* Up arrow was pressed */
+							if (velY > -maxSpeed){ velY -= 1.5; }
+							break;
+
+						case 40:  /* Down arrow was pressed */
+							if (velY < maxSpeed){ velY += 1.5; }
+							break;
+
+						case 37:  /* Left arrow was pressed */
+							if (velX > -maxSpeed){ velX -= 1.5; }
+							break;
+
+						case 39:  /* Right arrow was pressed */
+							if (velX < maxSpeed){ velX += 1.5; }
+							break;
+
+						case 32:
+							(cubecolourint + 1 == colourpalette.length)? cubecolourint = 0 : cubecolourint += 1;
+							switches += 1;
+							document.getElementById("score").innerHTML = "Switches: " + switches;
+							break;
+					}
+				}
+			}
+
+			// this is my function for updating the page
+			function update() {
+				// Y movement
+				velY *= friction;
+				if (!(
+					((y + velY + 77) > HEIGHT) || 
+					((y + velY - 5) < 0)
+
+					)){ 
+					y += velY; 
+				}
+
+				else {
+					velY = 0; 
+				}
+
+				// X movement
+				velX *= friction;
+				if (!(
+					((x + velX + 77) > WIDTH) || 
+					((x + velX - 5) < 0)
+
+					)){ 
+					x += velX; 
+				}
+
+				else {
+					velX = 0; 
+				}
+
+				checkCol();
+
+				var tilesleft = obsArray.length;
+				for (i in obsArray) {
+					!obsArray[i]? tilesleft--: null;
+				};
+
+				if (tilesleft > 0){
+					document.getElementById("tileleft").innerHTML = "Tiles left: " + tilesleft;
+					flag? time++ : null;
+					var currenttime = Math.round(time/20);
+					document.getElementById("time").innerHTML = "Time: " + currenttime;
+				}
+
+				else {
+					flag = false;
+					endGame("Win!");
+				}
+			}
+
+			// It draws things. You can tell because i named it "draw"
+			function draw() {
+				clear();
+				ctx.fillStyle = "#75715E";
+				ctx.strokeStyle = "#75715E";
+				rect(0,0,WIDTH,HEIGHT);
+			
+				for (i in obsArray){
+					ctx.strokeStyle = obsArray[i][0];
+					ctx.fillStyle = obsArray[i][0];
+
+					rect(obsArray[i][1], obsArray[i][2], obsArray[i][3], obsArray[i][4]);
+				}
+
+				ctx.strokeStyle = colourpalette[cubecolourint];
+				ctx.fillStyle = colourpalette[cubecolourint];
+
+				flag? rect(x,y,72,72) : null;
+				lost? endGame("Lose!"): null;
+
+				// ^ this is pretty
+				update();
+			}
+
+			// Main part of program
+			init();
+			window.addEventListener('keydown',doKeyDown,true);
+			
+			// I used this in creation to get coordinates
+			// var canvas = document.getElementById('canvas');
+			// var crect = canvas.getBoundingClientRect();
+			// canvas.addEventListener('mousemove', function(evt) {
+			// 	var mousePos ={x: evt.clientX-crect.left, y: evt.clientY-crect.top};
+			// 	var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+			// 	document.getElementById("mousepos").innerHTML = message;
+			// }, false);
+
+			</script>
+		</section>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<html>
+	<body>
+		<canvas id="canvas" width="600" height="600">
+			error 404: Canvas not found
+		</canvas>
+
+		<script type="text/javascript">
+			var canvas;
+			var ctx;
+
+			var clrs = ["#00AEEF", "#A6E22D", "#A581FF", "#F92772", "#E6DB74"];
+
+			function rect(x,y,w,h) {
+				ctx.beginPath();
+				ctx.rect(x*5,y*5,w*5,h*5);
+				ctx.closePath();
+				ctx.fill();
+				ctx.stroke();
+			}
+
+			function init() {
+				canvas = document.getElementById("canvas");
+				ctx = canvas.getContext("2d");
+				
+				ctx.fillStyle = ctx.strokeStyle = clrs[0];
+				rect(0,0,50,50);
+				
+				ctx.fillStyle = ctx.strokeStyle = clrs[1];
+				rect(0,50,50,50);
+
+				ctx.fillStyle = ctx.strokeStyle = clrs[2];
+				rect(50,0,50,50);
+				
+				ctx.fillStyle = ctx.strokeStyle = clrs[3];
+				rect(50,50,50,50);
+
+				ctx.fillStyle = ctx.strokeStyle = clrs[4];
+				rect(25,25,50,50);
+
+				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+				window.location.href=image;
+			}
+
+			init();
+
+		</script>
+	</body>
+</html>

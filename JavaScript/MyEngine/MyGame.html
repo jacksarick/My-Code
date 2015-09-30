@@ -1,0 +1,53 @@
+<html>
+	<body>
+		<section>
+			<canvas id="canvas" width="400" height="600">
+			</canvas>
+
+			<script src="myEngine.js"></script>
+			<script type="text/javascript">
+
+				var myObj = newObj(30,30,70,70,10,0);
+
+				//Really just for testing
+				function update (evt) {
+					clear("#297CDB");
+					movement(myObj);
+					rect(myObj, "#000000", "<");
+				}
+
+				function keypress(evt){
+					switch (evt){
+						case 38:  /* Up arrow was pressed */
+							/*if (myObj.vy > -myObj.ymv){*/ myObj.vy -= 1.5; /*}*/
+							break;
+
+						case 40:  /* Down arrow was pressed */
+							/*if (myObj.vy <  myObj.ymv){*/ myObj.vy += 1.5; /*}*/
+							break;
+
+						case 37:  /* Left arrow was pressed */
+							/*if (myObj.vx > -myObj.xmv){*/ myObj.vx -= 1.5; /*}*/
+							break;
+
+						case 39:  /* Right arrow was pressed */
+							/*if (myObj.vx <  myObj.xmv){*/ myObj.vx += 1.5; /*}*/
+							break;
+					}
+
+					console.log(myObj);
+				}
+
+				//starts game
+				function init(doFunction) {
+					canvas = document.getElementById("canvas");
+					ctx = canvas.getContext("2d");
+					return setInterval(doFunction, 20);
+				}
+
+				init(update);
+				window.addEventListener('keydown',keypress,true);
+			</script>
+		</section>
+	</body>
+</html>

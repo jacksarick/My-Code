@@ -1,0 +1,29 @@
+<html>
+	<body>
+		<section>
+			<canvas id="canvas" width="400" height="600">
+			</canvas>
+
+			<script src="myEngine.js"></script>
+			<script type="text/javascript">
+
+				var myObj = newObj(30,30,70,70,10,0);
+				//Really just for testing
+				function update () {
+					clear();
+					movement(myObj);
+					rect(myObj, "#000000", 0);
+				}
+
+				//starts game
+				function init(doFunction) {
+					canvas = document.getElementById("canvas");
+					ctx = canvas.getContext("2d");
+					return setInterval(doFunction, 20);
+				}
+
+				init(update);
+			</script>
+		</section>
+	</body>
+</html>

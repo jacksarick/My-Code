@@ -1,0 +1,64 @@
+<html>
+	<body>
+		<section>
+			<canvas id="canvas" width="1000" height="600">
+				It broke
+			</canvas>
+
+			<script src="./EnJine.js"></script>
+			<script type="text/javascript">
+				var WIDTH = 1000;
+				var HEIGHT = 600;
+				var ball = newObj(((WIDTH/2)-15),((HEIGHT/2)-15),30,30,randint(1,10),randint(1,10));
+				var ghost_ball = ball;
+				var world = {friction:1, bounce:1}
+				var c_paddle = newObj(10, ((HEIGHT/2)-75), 150, 30, 0, 0);
+
+				//Really just for testing
+				function update () {
+					clear();
+					rect(WIDTH, HEIGHT, 0, 0, "black")
+					movement(ghost_ball);
+
+					if (checkCol(ghost_ball, c_paddle)){
+						ball.vx *= -world.bounce;
+						ball.vy *= -world.bounce;
+						movement(ball);
+					}
+					else{
+						movement(ball);
+					}
+
+					ghost_ball = ball;
+					movement(c_paddle);
+					Orect(ball, "white", "white");
+					Orect(c_paddle, "white", "white");
+				}
+
+				function doKeyDown(evt){
+					switch (evt.keyCode) {
+						case 38:  /* Up arrow was pressed */
+							if (c_paddle.vy > 0){c_paddle.vy = -1.5;}
+							else {c_paddle.vy -= 1.5;}
+							break;
+
+						case 40:  /* Down arrow was pressed */
+							if (c_paddle.vy < 0){c_paddle.vy = 1.5;}
+							else {c_paddle.vy += 1.5;}
+							break;
+					}
+				}
+
+				//starts game
+				function init(doFunction) {
+					canvas = document.getElementById("canvas");
+					ctx = canvas.getContext("2d");
+					return setInterval(doFunction, 20);
+				}
+
+				init(update);
+				window.addEventListener('keydown',doKeyDown,true);
+			</script>
+		</section>
+	</body>
+</html>
