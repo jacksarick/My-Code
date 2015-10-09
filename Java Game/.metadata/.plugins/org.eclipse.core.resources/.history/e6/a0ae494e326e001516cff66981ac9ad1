@@ -1,0 +1,32 @@
+package defence;
+
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import javax.swing.*;
+
+public class Main {
+	public static void makeWindow(String title, BufferedImage[] play_map){
+//		Set up the frame
+		JFrame frame = new JFrame(title);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridLayout(10, 10));
+		frame.setResizable(false);
+		frame.setVisible(true);
+		
+		for (int i = 0; i < 100; i++){
+//			frame.add(new JLabel("This is a label"));
+			frame.add(new JLabel(new ImageIcon(play_map[i])));
+		}
+		 
+//		Pack all of our lovely items into the frame
+		frame.pack();
+	}
+	
+	public static void main(String args[]){
+		String spriteSheet_1 = "/Users/jack.sarick/Code/Java Game/defence/src/defence/sheet.png";
+		BufferedImage ground_tile = SpriteSheet.spriteSheet(spriteSheet_1)[0];
+		BufferedImage wall_tile = SpriteSheet.spriteSheet(spriteSheet_1)[28];
+		BufferedImage[] play_map = new BufferedImage[] {wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, ground_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile, wall_tile };
+		makeWindow("Title", play_map);
+	}
+}
