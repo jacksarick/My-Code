@@ -16,7 +16,9 @@ def readFrame(videoIn):
 	while success:
 		# read image, write out as a temp frame
 		success, image = video.read()
-		cv2.imwrite("./frames/frame_img" + str(counter) + ".jpg", image)
+		cv2.imwrite("./frame_img" + str(counter) + ".jpg", image)
+		print "./frame_img" + str(counter) + ".jpg has been saved"
 		counter += 1
 
 readFrame(raw_input("Video to average: "))
+print time() - starttime
