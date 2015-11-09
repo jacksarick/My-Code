@@ -2,6 +2,8 @@ from json import loads
 
 data = loads(raw_input("Data\n>"))
 
+# DOESNT WORK
+
 def depthFirstSearch(tree, start, target, result=[]):
 	# make path
 	path = result + [start]
