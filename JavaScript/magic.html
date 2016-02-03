@@ -1,0 +1,83 @@
+<html>
+	<head>
+		<style type="text/css">
+			.card{
+				background-color: red;
+				margin: 5px;
+				float: left;
+			}
+
+			.cardMenu{
+				display: none;
+				height:50px;
+				background-color: black;
+				color:white;
+			}
+
+			.card:hover .cardMenu{
+				display: block;
+			}
+
+			#graveyard{
+				height:50%;
+				width:175px;
+				overflow-y:auto;
+				background-color:gray;
+				position:absolute;
+				top:0;
+				right:0;
+			}
+			
+			#cardTable{
+				width:75%;
+			}
+
+		</style>
+	</head>
+	<body>
+		<button onclick="newCard();">New Card</button>
+		<div id="cardTable"></div>
+		<div id="graveyard"></div>
+	</body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		var cardCount = 0;
+		var card;
+
+		function newCard() {
+			cardCount ++;
+			card = "<div id='card" + cardCount + "' class='card' style='width:165; height:231;'><div class='cardMenu'> <button onclick='graveCard(" + cardCount + ");'>Graveyard</button> <button id='tapButton+" + cardCount +"' onclick='tapCard(" + cardCount + ");'>Tap</button> <button onclick='tableCard(" + cardCount + ");'>Table</button> <button onclick='exileCard(" + cardCount + ");'>Exile</button> <button onclick='handCard(" + cardCount + ");'>Hand</button> +1/+1: 0 <button onclick='add1/1(" + cardCount + ");'>+</button> <button onclick='rm1/1(" + cardCount + ");'>-</button></div></div>"
+			$('#cardTable').append(card);
+		}
+
+		function exileCard (cardNumber) {
+			$('#card'+cardNumber).remove();
+		}
+
+		function graveCard (cardNumber) {
+			$('#card'+cardNumber).prependTo('#graveyard');
+		}
+
+		function tableCard (cardNumber) {
+			$('#card'+cardNumber).prependTo('#cardTable');
+		}
+
+		function handCard (cardNumber) {
+			$('#card'+cardNumber).prependTo('#playerHand');
+		}
+
+		function tapCard (cardNumber) {
+			console.log($('#tapButton'+cardNumber).attr('value'));
+			if ($('#tapButton'+cardNumber).text() == "Tap"){
+				$('#card'+cardNumber).css('height', '165');
+				$('#card'+cardNumber).css('width', '231');
+				$('#tapButton'+cardNumber).text("Untap");
+			}
+			else{
+				$('#card'+cardNumber).css('height', '231');
+				$('#card'+cardNumber).css('width', '165');
+				$('#tapButton'+cardNumber).text("Tap");
+			}
+		}
+	</script>
+</html>

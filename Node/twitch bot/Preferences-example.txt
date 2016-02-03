@@ -1,0 +1,14 @@
+modules messagelogger example-module commands
+debugLevel 1
+
+#testchannel1
+commandCharacters !~
+lengthLimit 500
+capsTolerance 0.5
+log true
+
+#testchannel
+commandCharacters ~!
+lengthLimit -1
+capsTolerance 0.5
+log false

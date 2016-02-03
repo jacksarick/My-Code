@@ -1,0 +1,17 @@
+{
+  "name": "space_server",
+  "version": "1.0.0",
+  "description": "The server for Space_",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.13.4",
+    "node-persist": "0.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

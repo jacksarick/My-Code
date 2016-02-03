@@ -3,6 +3,7 @@ var ctx;
 var WIDTH = 400;
 var HEIGHT = 600;
 
+
 // Emulation functions
 function countNeighbours(x, y) {
 	var amount = 0;

@@ -1,0 +1,13 @@
+#options.json has sensitive information (namely the oauth token) and should be ignored
+options.json
+#everyone has their own preferences
+preferences.txt
+#ignore modules that start with a . to make it easy to have custom commands on the git directory
+modules/.*
+#
+#ignore certain folders
+node_modules/
+#misc is to be used by modules for storing things
+misc/
+#
+#

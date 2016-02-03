@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Calendar
+		</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1 id="title"></h1>
+		<table id="calendar">
+			<th>
+				<td>S</td>
+				<td>M</td>
+				<td>T</td>
+				<td>W</td>
+				<td>T</td>
+				<td>F</td>
+				<td>S</td>
+			</th>
+		</table>
+
+		<script type="text/javascript">
+			var months = {"J":31, "F":29, "M":31, "A":30};
+
+			function update_calendar (month_name) {
+				$("#title").html(month_name);
+
+				for (var i = (months[month_name]/7) - 1; i >= 0; i--) {
+					$("#calendar").append("<tr></tr>");
+				};
+
+				$("tr").append("<td>Date 1</td> <td>Date 2</td>")
+			}
+		</script>
+	</body>
+</html>

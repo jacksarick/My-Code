@@ -1,0 +1,22 @@
+{
+  "name": "bearded-meme",
+  "version": "0.0.1",
+  "description": "A twitch bot. This is not meant to be used as a node module, but as a standalone program.",
+  "bugs": "https://github.com/chalenged/bearded-meme/issues",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "irc-message": "latest",
+    "request": "latest"
+  },
+  "contributors": [
+    {
+      "name": "Chalenged",
+      "email": "chalenged@users.noreply.github.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chalenged/bearded-meme"
+  },
+  "private": true
+}
