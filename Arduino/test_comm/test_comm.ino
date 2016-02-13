@@ -1,9 +1,10 @@
 void setup() {
-  Serial.start(9600);
-
+  Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  Serial.write("Start 5 Minutes");
+  delay(300000);
+  Serial.write("End 5 Minutes");
+  delay(1000);
 }
