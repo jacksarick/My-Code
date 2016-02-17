@@ -8,7 +8,7 @@ require('net').createServer(function (socket) {
 }).listen(8080);
 
 // client
-var s = require('net').Socket();
-s.connect(8080);
-s.write('Hello');
-s.end();
+var sock = require('net').Socket();
+sock.connect(8080);
+sock.write('Hello');
+sock.end();
