@@ -1,0 +1,10 @@
+orange
+orange
+red
+orange
+blue
+red
+orange
+green
+pink
+end of box

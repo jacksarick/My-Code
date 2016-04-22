@@ -1,0 +1,1 @@
+main = print $ [x | x <- takeWhile (<= 40) [0..100]]
