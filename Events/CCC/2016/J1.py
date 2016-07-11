@@ -1,0 +1,1 @@
+print [-1, 3, 3, 2, 2, 1, 1][[raw_input() for i in range(6)].count("W")]

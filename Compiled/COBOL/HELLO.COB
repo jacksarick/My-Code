@@ -1,0 +1,21 @@
+      *Simple Hello world
+
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. HELLO.
+
+        DATA DIVISION.
+          WORKING-STORAGE SECTION.
+          01 WS-PRINT-TEXT PIC A(30).
+          01 WS-OUT-TEXT PIC X(30).
+          01 WS-DATE PIC X(10).
+          01 WS-NUMBER PIC 9.
+
+        PROCEDURE DIVISION.
+          COMPUTE WS-NUMBER = FUNCTION MOD ( 11, 3 ).
+          DISPLAY WS-NUMBER.
+          ACCEPT WS-DATE FROM DATE.
+          MOVE 'PLEASE INPUT WORD:' to WS-PRINT-TEXT.
+          DISPLAY WS-PRINT-TEXT.
+          ACCEPT WS-OUT-TEXT.
+          DISPLAY "YOU SAID "WS-OUT-TEXT" AT "WS-DATE.
+        STOP RUN.
