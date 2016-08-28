@@ -1,6 +1,6 @@
 #lang racket
 
-(define list '(1 2 3 4 5 6))
+(define list '(1 2 (3 4 (5 6)) 7 8 (9 10)))
 
 ; 1: Find the last element of a list
 (define lst
@@ -48,10 +48,12 @@
 ; 7: Flatten a nested list structure
 ;; HAHAHAH IDK
 (define flatten
-	(λ (x [y '()])
+	(λ (x)
 		; If it contains no lists
-		(if (eq? '() (filter list? x))
-			(append x y)
-			())))
+		(while (andmap list? x)
+			; Combine the first item of x and the second
+			()
+			; Else return x
+			(car x))))
 
 (write (palindrome list))

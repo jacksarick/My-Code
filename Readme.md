@@ -1,4 +1,4 @@
-Most of the code I've written, except some seperate repos
+Most of the code I've written, except seperate repos
 
 Directory tree:
 
@@ -55,7 +55,6 @@ Directory tree:
 │   ├── Misc.
 │   ├── The Car
 │   ├── bots
-│   │   └── inspirobot_tweeter
 │   ├── camshift
 │   ├── college HW
 │   ├── interwebs
@@ -64,5 +63,6 @@ Directory tree:
 │   │   └── euler
 │   └── sudoku
 │
+├── netlogo
 └── Racket
 ~~~
