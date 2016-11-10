@@ -2,3 +2,4 @@
 *.rkt~
 .metadata
 libraries
+euler_problems.html
