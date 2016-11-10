@@ -1,0 +1,42 @@
+#lang racket/gui
+
+;Function for radian -> degrees
+(define rad
+  (lambda (x)
+    (* x (/ pi 180))))
+
+;Function to draw a circle
+(define draw-circle
+  (lambda (x y r)
+    (draw-ellipse (- x ( / r 2)) (- y ( / r 2)) r r)))
+    
+
+;Make a window
+(define frame (new frame%
+                   [label "Game"]
+                   [width 500]
+                   [height 500]))
+
+(define char-x 100)
+(define char-y 100)
+(define char-d 30)
+(define char-r   0)
+
+;Draw our character
+(define draw-char
+  (lambda (dc x y d)
+    
+    ;Clear the board
+    (send dc erase)
+
+    ;Define a radius
+    (let ([radius 30])
+      ;Draw the char at center (x, y)
+      (send dc draw-ellipse (- x ( / radius 2)) (- y ( / radius 2)) radius radius))))
+
+(define canvas (new canvas% [parent frame]
+             [paint-callback
+              (lambda (canvas dc)
+                (draw-char dc char-x char-y char-r))]))
+
+(send frame show #t)
