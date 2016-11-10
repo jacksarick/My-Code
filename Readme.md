@@ -1,68 +1,48 @@
-Most of the code I've written, except seperate repos
+Most of the code I've written, except seperate repos. Not examples of amazing stuff, and it contains all my past, even stuff I'm not particularly proud of.
 
 Directory tree:
 
 ~~~
-│── Arduino
-│
+┌── Arduino
 ├── Compiled
 │   ├── C
 │   ├── COBOL
 │   └── Java
 │       ├── DoodleJump
 │       └── Java Game
-│
 ├── Events
 │   ├── CCC
-│   │   ├── 2009
-│   │   ├── 2015
-│   │   └── 2016
 │   └── ECOO
-│       ├── ECOO 15
-│       └── ECOO 16
-│
 ├── Functional
+│   ├── Elixir
 │   ├── Erlang
 │   ├── Haskell
 │   └── Lisp
-│
 ├── JavaScript
 │   ├── CoulourCatcher
 │   ├── Game_of_life
 │   ├── MyEngine
 │   ├── Node
-│   │   ├── IRC_node
-│   │   ├── lambda-sheets
-│   │   ├── lux-miners
-│   │   ├── matoro
-│   │   ├── rpg-irc-bot
-│   │   └── server
 │   ├── Pong
 │   ├── javascript-scratchpad
 │   └── thermalmaps
-│
 ├── Misc.
-│
 ├── Python
 │   ├── Algorithms
-│   │   ├── BFS
-│   │   └── DFS
 │   ├── BF
 │   ├── Facial recog
 │   ├── Games
-│   ├── Libraries that I've messed with
-│   │   └── movie_avg
+│   ├── Libraries that i've messed with
 │   ├── Misc.
 │   ├── The Car
+│   ├── bnb problem
 │   ├── bots
-│   ├── camshift
 │   ├── college HW
 │   ├── interwebs
 │   ├── pi
 │   ├── python challenges
-│   │   └── euler
 │   └── sudoku
-│
-├── netlogo
-└── Racket
+├── Racket
+├── Rust
+└── netlogo
 ~~~
