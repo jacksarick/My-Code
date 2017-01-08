@@ -1,6 +1,6 @@
 # brings in a file to help take punctuation
 import string
-import webcolors
+# import webcolors
 from turtle import *
 
 #Get our list of colours
@@ -37,15 +37,15 @@ for line in book_lines:
 			#add the colour to our list
 			book_colours.append(word)
 
-			try:
-				book_hex.append(webcolors.name_to_hex(word))
-			except ValueError:
-				book_hex = book_hex
+			# try:
+			# 	book_hex.append(webcolors.name_to_hex(word))
+			# except ValueError:
+			# 	book_hex = book_hex
 
 
 
 #Finally, print all the colours, then the amount of them
-print book_hex
+# print book_hex
 print book_colours
 print len(book_colours)
 
@@ -53,7 +53,7 @@ print len(book_colours)
 
 speed(0)
 
-for draw_colour in book_hex:
+for draw_colour in book_colours:
 	if pos()[0] >= 200:
 		penup()
 		setpos(0, (pos()[1]-10))
