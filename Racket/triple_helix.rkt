@@ -1,5 +1,10 @@
 #lang racket/gui
 
+;;; TODO:
+;;; - Make expand/contract velocity based (like spinning)
+;;; - Add enemies
+;;; - Add score system
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GENERAL FUCNTIONS ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -65,8 +70,7 @@
     ['down  (set! char-d (list (- (car char-d) 5)))]
     ['left  (set! char-r (list (car char-r) (+ (cadr char-r) .25)))]
     ['right (set! char-r (list (car char-r) (- (cadr char-r) .25)))]
-    ['release null]
-    [_ (displayln action)])))
+    [_ nil])))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; WINDOW FUCNTIONS ;;;
@@ -118,7 +122,6 @@
     (send canvas on-paint)
     (sleep/yield (/ 1 60))
     (loop)))
-
 
 ;;;;;;;;;;;;
 ;;; MAIN ;;;
