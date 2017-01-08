@@ -1,9 +1,18 @@
 #lang racket/gui
 
-;;; TODO:
-;;; - Make expand/contract velocity based (like spinning)
-;;; - Add enemies
-;;; - Add score system
+;;;;;;;;;;;;
+;;; INFO ;;;
+;;;;;;;;;;;;
+
+;* Made by Jack Sarick
+
+;* TODO:
+;* [ ] Make expand/contract velocity based (like spinning) (maybe)
+;* [ ] Add obstacles
+;* [ ] Add score system
+;* [ ] Make docs
+
+;* dc is shorthand for "drawing context"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GENERAL FUCNTIONS ;;;
@@ -31,38 +40,61 @@
 (defn rad (x)
   (* x (/ pi 180)))
 
-;Rotates a point around another point
-;; point, distance from centre, function, rotation -> new point
-(defn transform (p d f r)
+;Rotates a half-point around another half-point (helper for transform)
+;; half-point, distance from centre, function, rotation -> new half-point
+(defn half-transform (p d f r)
   (+ p (* d (f (rad r)))))
+
+;Rotates point around another-point
+;; (x, y), distance from centre, rotation -> new (x, y)
+(defn transform (p d r)
+  (list
+    (half-transform (car p)  d sin r)
+    (half-transform (cadr p) d cos r)))
 
 ;;alt transform -> tform
 (alt transform tform)
 
 ;Function to draw a circle with centre at (x y)
-;; context, x coord , y coord, radius -> nil
-(defn draw-circle (dc x y r)
-  (send dc draw-ellipse (- x ( / r 2)) (- y ( / r 2)) r r))
+;; dc, x coord , y coord, radius -> null
+(defn draw-circle (dc p r)
+  (let ([x (car p)]
+        [y (cadr p)])
+  (send dc draw-ellipse (- x ( / r 2)) (- y ( / r 2)) r r)))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; GAME FUNCTIONS ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
 ;Draw our character
-;; context, x coord, y coord, radius, rotation -> nil
+;; dc, x coord, y coord, radius, rotation -> null
 (defn draw-char (dc x y d r)
   ;Define a radius
-  (let ([radius 30])
+  (let ([radius 30]
+        [point (list x y)])
 
     ;Draw the char at center (x, y)
     (send dc set-pen   "black" 1 'solid)
     (send dc set-brush "black"   'solid)
-    (draw-circle dc (tform x d sin (+ r   0)) (tform y d cos (+ r   0)) radius)
-    (draw-circle dc (tform x d sin (+ r 120)) (tform y d cos (+ r 120)) radius)
-    (draw-circle dc (tform x d sin (+ r 240)) (tform y d cos (+ r 240)) radius)))
+    (draw-circle dc (tform point d (+ r   0)) radius)
+    (draw-circle dc (tform point d (+ r 120)) radius)
+    (draw-circle dc (tform point d (+ r 240)) radius)))
+
+;Draw obstacle
+;; dc, (x, y) -> null
+(defn draw-obstacle (dc p)
+  null)
+
+;Draw obstacles
+;; dc, list of (x, y) -> null
+(defn draw-obstacles (dc obs-list)
+  (begin
+    (send dc set-pen   "black" 1 'solid)
+    (send dc set-brush "black"   'solid)
+    (map draw-obstacle obs-list)))
 
 ;Function triggered on key stroke
-;; racket-event -> nil
+;; racket-event -> null
 (defn key-stroke (event)
   (let ([action (send event get-key-code)])
     (match action
@@ -70,14 +102,14 @@
     ['down  (set! char-d (list (- (car char-d) 5)))]
     ['left  (set! char-r (list (car char-r) (+ (cadr char-r) .25)))]
     ['right (set! char-r (list (car char-r) (- (cadr char-r) .25)))]
-    [_ nil])))
+    [_ null])))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; WINDOW FUCNTIONS ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;Function that is run every tick
-;; canvas, context -> nil
+;; canvas, dc -> null
 (defn game-tick (canvas dc)
   (begin
     ;Clear the board
