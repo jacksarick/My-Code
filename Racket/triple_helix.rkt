@@ -6,10 +6,10 @@
 
 ;Macro for 'defn'
 ;;macro (define (λ () ...)) -> (defn () ...)
-(define-syntax-rule (defn name args body...)
+(define-syntax-rule (defn name args body)
   (define name
     (λ args
-      body...)))
+      body)))
 
 ;Macro for renaming function
 ;;macro (defn x a (y a)) -> (alt y x)
