@@ -30,6 +30,16 @@
 (define-syntax-rule (alt old new)
 	(defn new args (apply old args)))
 
+;Sum of a list
+;; '(x y z) -> (+ x y z)
+(defn sum (l)
+  (apply + l))
+
+;Add vectors
+;; '(a b), '(x y) -> '((+ a x) (+ b y))
+(defn vsum (v1 v2)
+  (map + v1 v2))
+
 ;For (x y) returns ((+ x y) y)
 ;; (value increment) -> (new-value increment)
 (defn update (x)
@@ -55,12 +65,19 @@
 ;;alt transform -> tform
 (alt transform tform)
 
-;Function to draw a circle with centre at (x y)
+;Draw a circle with centre at (x y)
 ;; dc, x coord , y coord, radius -> null
 (defn draw-circle (dc p r)
   (let ([x (car p)]
         [y (cadr p)])
   (send dc draw-ellipse (- x ( / r 2)) (- y ( / r 2)) r r)))
+
+;Change pen colour
+;; dc, colour -> null
+(defn pen-colour (dc c)
+  (begin
+    (send dc set-pen   c 1 'solid)
+    (send dc set-brush c   'solid)))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; GAME FUNCTIONS ;;;
@@ -74,24 +91,37 @@
         [point (list x y)])
 
     ;Draw the char at center (x, y)
-    (send dc set-pen   "black" 1 'solid)
-    (send dc set-brush "black"   'solid)
+    (pen-colour  dc "red")
     (draw-circle dc (tform point d (+ r   0)) radius)
+    (pen-colour  dc "green")
     (draw-circle dc (tform point d (+ r 120)) radius)
+    (pen-colour  dc "blue")
     (draw-circle dc (tform point d (+ r 240)) radius)))
 
 ;Draw obstacle
 ;; dc, (x, y) -> null
 (defn draw-obstacle (dc p)
-  null)
+  (draw-circle dc p 20))
 
 ;Draw obstacles
 ;; dc, list of (x, y) -> null
 (defn draw-obstacles (dc obs-list)
   (begin
-    (send dc set-pen   "black" 1 'solid)
-    (send dc set-brush "black"   'solid)
-    (map draw-obstacle obs-list)))
+    (pen-colour dc (make-object color% 210 210 215))
+    (map (λ (point) (draw-obstacle dc point)) obs-list)))
+
+;Checks whether obstacle tuple is in bound
+;; dc, ((px py) (vx vy)) -> bool
+(defn obstacle-in-bound? (dc tuple)
+  (let ([pos (apply vsum tuple)])
+    pos))
+
+;Update obstacles
+;; list of (points velocities) -> new list of (points velocities)
+(defn move-obstacles (tuples)
+  (map list
+   (map (λ (pair) (apply vsum pair)) tuples)
+   (map cadr tuples)))
 
 ;Function triggered on key stroke
 ;; racket-event -> null
@@ -113,21 +143,19 @@
 (defn game-tick (canvas dc)
   (begin
     ;Clear the board
-    (send dc erase)
-  
-    ;Draw the character
-    (draw-char dc (car char-x) (car char-y) (car char-d) (car char-r))))
+    (send dc set-background (make-object color% 45 45 50))
+    (send dc clear)
 
-;Define our character's stats
-(define char-x '(250 0))
-(define char-y '(250 0))
-(define char-d '(50)   )
-(define char-r '(90  2))
+    ;Draw the character
+    (draw-char dc (car char-x) (car char-y) (car char-d) (car char-r))
+    
+    ;Draw obstacles
+    (draw-obstacles dc (map car obstacles))))
 
 ;Define a window
 (define frame (new frame%
   [label "Triple Helix"]
-  [width 500]
+  [width  500]
   [height 500]))
 
 ;Define a new general canvas class
@@ -146,6 +174,11 @@
 ;Define our game loop to update 60 times per second
 (defn loop ()
   (begin
+
+    ;Update obstacles
+    ;(displayln obstacles)
+    (set! obstacles (move-obstacles obstacles))
+    
     ;Update our character
     (set! char-x (update char-x))
     (set! char-y (update char-y))
@@ -158,6 +191,17 @@
 ;;;;;;;;;;;;
 ;;; MAIN ;;;
 ;;;;;;;;;;;;
+
+;Obstacle list
+(define obs-points '((10 10) (50 50) (100 100) (200 300)))
+(define obs-vec    '(( 1  1) (-1 -1) ( -1   1) (  1  -1)))
+(define obstacles (map list obs-points obs-vec))
+
+;Define our character's stats
+(define char-x '(250 0))
+(define char-y '(250 0))
+(define char-d '(50)   )
+(define char-r '(90  2))
 
 ;Show the window
 (send frame show #t)
