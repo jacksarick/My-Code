@@ -40,6 +40,11 @@
 (defn vsum (v1 v2)
   (map + v1 v2))
 
+;Between function
+;; min, var, max -> bool
+(defn between (l x m)
+  (and (< l x) (> m x)))
+
 ;For (x y) returns ((+ x y) y)
 ;; (value increment) -> (new-value increment)
 (defn update (x)
@@ -112,16 +117,20 @@
 
 ;Checks whether obstacle tuple is in bound
 ;; dc, ((px py) (vx vy)) -> bool
-(defn obstacle-in-bound? (dc tuple)
-  (let ([pos (apply vsum tuple)])
-    pos))
+(defn obstacle-in-bound? (tuple)
+  (let ([x (car  (apply vsum tuple))]
+        [y (cadr (apply vsum tuple))])
+    (and
+     (between 0 x 500)
+     (between 0 y 500))))
 
 ;Update obstacles
 ;; list of (points velocities) -> new list of (points velocities)
-(defn move-obstacles (tuples)
-  (map list
-   (map (λ (pair) (apply vsum pair)) tuples)
-   (map cadr tuples)))
+(defn move-obstacles (tuple-list)
+  (let ([tuples (filter obstacle-in-bound? tuple-list)])
+    (map list
+         (map (λ (pair) (apply vsum pair)) tuples)
+         (map cadr tuples))))
 
 ;Function triggered on key stroke
 ;; racket-event -> null
@@ -176,7 +185,7 @@
   (begin
 
     ;Update obstacles
-    ;(displayln obstacles)
+    (displayln obstacles)
     (set! obstacles (move-obstacles obstacles))
     
     ;Update our character
