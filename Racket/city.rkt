@@ -55,7 +55,7 @@
   (begin
     ;Clear the board
     (send dc set-background (make-object color% 45 45 50))
-    (send dc clear))))
+    (send dc clear)))
 
 ;Define a window
 (define frame (new frame%
