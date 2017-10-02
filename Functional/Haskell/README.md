@@ -1,2 +1,3 @@
-Not actually sure... it seems pretty cool, I just don't understand it
+# Haskell
 
+I'm just begining to understand Haskell. A calculus class and a few years of programming gave me the right tools to use this tool.
