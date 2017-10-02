@@ -24,5 +24,7 @@ problem2 = sum [x | x <- takeWhile (< 4000000) fib, even x]
 problem3 :: Integer
 problem3 = [x | x <- multiples 600851475143, prime x] !! 0
 
+
+-- Main function
 main :: IO ()
 main = print $ problem3
