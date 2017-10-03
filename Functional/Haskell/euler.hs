@@ -3,7 +3,7 @@
 (//) x y = x `mod` y
 
 multiples :: Integer -> [Integer]
-multiples x = [y | y <- [x `div` 2, (x `div` 2) - 1 .. 2], x//y == 0]
+multiples x = [y | y <- [2 .. x `div` 2], x//y == 0]
 
 prime :: Integer -> Bool
 prime x = multiples x == []
@@ -24,7 +24,17 @@ problem2 = sum [x | x <- takeWhile (< 4000000) fib, even x]
 problem3 :: Integer
 problem3 = [x | x <- multiples 600851475143, prime x] !! 0
 
+-- ??? Problem 4: largest palindrome from product of 2 3-digit numbers
+-- palindrome :: Integer -> Bool
+-- palindrome x = show x == reverse (show x)
+
+-- problem4 :: Integer
+-- problem4 = takeWhile (\x -> not (palindrome x)) [x | x <- [999**2, 999**2..1],
+
+-- Problem 5: smallest number evenly divisible by [1..20]
+problem5 :: Integer
+problem5 = until (\x -> foldl1 (&&) $ map (\y -> (x//y) == 0) [1..20]) (subtract 1) $ foldl1 (*) [1..20] - 1
 
 -- Main function
 main :: IO ()
-main = print $ problem3
+main = print $ problem5
