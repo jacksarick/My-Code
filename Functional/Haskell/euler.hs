@@ -35,6 +35,15 @@ problem3 = [x | x <- multiples 600851475143, prime x] !! 0
 problem5 :: Integer
 problem5 = until (\x -> foldl1 (&&) $ map (\y -> (x//y) == 0) [1..20]) (subtract 1) $ foldl1 (*) [1..20] - 1
 
+-- Problem 6: ∆ sum of squares and square of sums
+problem6 :: Integer
+problem6 = (sum [1..100] * sum [1..100]) - (sum [x * x | x <- [1..100]]) 
+
+-- Problem 7: 10001 prime number
+problem7 :: Integer
+problem7 = [x | x <- [1..], prime x] !! 10001
+
+
 -- Main function
 main :: IO ()
-main = print $ problem5
+main = print $ problem7
