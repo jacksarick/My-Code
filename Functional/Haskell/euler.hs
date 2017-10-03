@@ -46,4 +46,4 @@ problem7 = [x | x <- [1..], prime x] !! 10001
 
 -- Main function
 main :: IO ()
-main = print $ problem7
+main = print $ problem1
